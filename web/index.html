@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YSK Current Week Payout</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="masthead">
+        <div class="masthead-copy">
+          <p class="eyebrow">YSK dashboard</p>
+          <h1>Current Week Payout</h1>
+          <p class="subtitle">Review payout rows and keep an independent timer evidence ledger.</p>
+        </div>
+        <div class="status-card" id="connection-card">
+          <span class="status-dot"></span>
+          <div>
+            <strong id="connection-title">Checking session</strong>
+            <p id="connection-copy">Looking for a saved trainer platform login.</p>
+          </div>
+        </div>
+      </header>
+
+      <section class="control-deck">
+        <article class="panel">
+          <div class="panel-title">
+            <span class="step-num">1</span>
+            <div>
+              <h2>Sign in to trainer platform</h2>
+              <p>Open the trainer platform login window, finish signing in, then save your session.</p>
+            </div>
+          </div>
+          <div class="action-row">
+            <button class="primary" id="connect-button">Open trainer platform login</button>
+            <button id="save-login-button" disabled>Save Login</button>
+            <button class="ghost" id="logout-button">Log Out</button>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-title">
+            <span class="step-num">2</span>
+            <div>
+              <h2>Load payout</h2>
+              <p>Pull the current unpaid payout rows from your trainer platform payment dashboard.</p>
+            </div>
+          </div>
+          <div class="action-row">
+            <button class="primary" id="fetch-project-button">Fetch Current Week</button>
+            <span class="project-id mono" id="configured-project-id" title="Configured fallback project ID"></span>
+          </div>
+        </article>
+      </section>
+
+      <section class="message" id="message" hidden></section>
+
+      <section class="dashboard" id="dashboard" hidden>
+        <div class="dashboard-heading">
+          <div>
+            <p class="eyebrow">Current week</p>
+            <h2 id="dashboard-title">Current Week Payout</h2>
+          </div>
+          <div class="dashboard-meta">
+            <p id="generated-at"></p>
+            <button class="chip" id="refresh-button" title="Refresh payout">
+              <span aria-hidden="true">↻</span> Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel span-2">
+            <div class="panel-heading">
+              <h2>Breakdown</h2>
+              <span id="expected-count" class="muted">0 rows</span>
+            </div>
+            <div class="top-card-grid">
+              <div class="expected-summary" id="expected-summary"></div>
+              <div class="expected-summary" id="incentive-summary"></div>
+              <div class="expected-summary" id="hours-summary"></div>
+            </div>
+            <div class="table-wrap">
+              <table class="expected-breakdown">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Project</th>
+                    <th class="numeric">Hours</th>
+                    <th class="numeric">Pay rate</th>
+                  </tr>
+                </thead>
+                <tbody id="expected-table"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard tracker-dashboard" id="timer-tracker">
+        <div class="dashboard-heading">
+          <div>
+            <p class="eyebrow">Timer evidence</p>
+            <h2>Independent Time Tracker</h2>
+          </div>
+          <div class="dashboard-meta">
+            <p id="tracker-updated-at"></p>
+            <button class="chip" id="export-tracker-pdf-button" title="Open a printable PDF report">
+              Export PDF
+            </button>
+            <button class="chip" id="export-tracker-button" title="Save tracker CSV locally">
+              Save CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel span-2 guide-panel">
+            <div class="panel-heading">
+              <h2>Start Here</h2>
+              <span class="muted">Beginner friendly</span>
+            </div>
+            <div class="guide-intro">
+              <p>
+                This tracker needs two small pieces of information from your browser:
+                timer events and confirmed pay seconds. Nothing gets sent anywhere by this app.
+              </p>
+              <p class="timer-running-note">
+                Open browser tools before you work. The timer JSON only appears when the trainer
+                task timer is running and you start, pause, or resume it while Network is recording.
+              </p>
+              <p class="privacy-note">
+                Safe to paste: response or payload JSON. Never paste cookies, request headers,
+                passwords, bearer tokens, or anything that says Authorization.
+              </p>
+            </div>
+            <div class="guide-grid" aria-label="How to collect timer evidence">
+              <div class="guide-step-card">
+                <span class="guide-number">1</span>
+                <div>
+                  <h3>Open Browser Tools</h3>
+                  <p>
+                    In Chrome or Edge, open trainer platform, then press
+                    <kbd>F12</kbd> or <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd>.
+                  </p>
+                </div>
+                <div class="mini-browser" aria-hidden="true">
+                  <div class="mini-bar"></div>
+                  <div class="mini-window">
+                    <span>trainer platform</span>
+                    <strong>F12</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="guide-step-card">
+                <span class="guide-number">2</span>
+                <div>
+                  <h3>Go To Network</h3>
+                  <p>
+                    Click the tab named <strong>Network</strong>, then turn on
+                    <strong> Preserve log</strong> before you start, pause, or resume the timer.
+                  </p>
+                </div>
+                <div class="mini-network" aria-hidden="true">
+                  <span>Elements</span>
+                  <strong>Network</strong>
+                  <span>Console</span>
+                  <div class="mini-check">Preserve log ON</div>
+                </div>
+              </div>
+              <div class="guide-step-card">
+                <span class="guide-number">3</span>
+                <div>
+                  <h3>Filter The Request</h3>
+                  <p>
+                    Type <code>createTimeTrackingEvent</code> to find timer starts,
+                    resumes, and pauses. If the timer was already running before Network was open,
+                    that earlier start may not be there.
+                  </p>
+                </div>
+                <div class="mini-filter" aria-hidden="true">
+                  <span>Filter</span>
+                  <strong>createTimeTrackingEvent</strong>
+                </div>
+              </div>
+              <div class="guide-step-card">
+                <span class="guide-number">4</span>
+                <div>
+                  <h3>Copy The JSON</h3>
+                  <p>
+                    Click the request, open <strong>Preview</strong> or
+                    <strong> Payload</strong>, copy only the JSON, paste it below,
+                    then click <strong>Import JSON</strong>.
+                  </p>
+                </div>
+                <div class="mini-json" aria-hidden="true">
+                  <span>{</span>
+                  <strong>"taskId"</strong>
+                  <span>"timeWorkedInSeconds"</span>
+                  <span>}</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel span-2">
+            <div class="panel-heading">
+              <h2>Paste Browser Tool JSON</h2>
+              <span class="muted">Local only</span>
+            </div>
+            <div class="tracker-controls">
+              <label>
+                <span>Hourly rate</span>
+                <input id="tracker-rate" type="number" min="0" step="0.01" value="50" />
+              </label>
+              <div class="action-row tracker-actions">
+                <button class="primary" id="import-tracker-button">Import JSON</button>
+                <button id="sample-tracker-button">Load Sample</button>
+                <button class="ghost" id="clear-tracker-button">Clear Tracker</button>
+              </div>
+            </div>
+            <div class="safe-json-examples" aria-label="Safe JSON examples">
+              <div class="safe-example-card">
+                <h3>Safe Timer Event JSON</h3>
+                <p>Paste this kind of JSON when the timer starts, pauses, or resumes.</p>
+                <pre><code>{
+  "taskId": "example-task-id-123",
+  "eventName": "started",
+  "createdAt": "2026-06-03T17:16:36.641Z"
+}</code></pre>
+              </div>
+              <div class="safe-example-card">
+                <h3>Safe Confirmed Time JSON</h3>
+                <p>Paste this kind of JSON when trainer platform confirms payable seconds.</p>
+                <pre><code>{
+  "taskId": "example-task-id-123",
+  "workerId": "example-worker-id-456",
+  "timeWorkedInSeconds": 846
+}</code></pre>
+              </div>
+            </div>
+            <textarea
+              id="tracker-json"
+              class="tracker-input"
+              spellcheck="false"
+              placeholder='Paste only safe JSON here. Good: taskId, eventName, createdAt, timeWorkedInSeconds. Bad: cookies, request headers, passwords, bearer tokens, Authorization.'
+            ></textarea>
+          </article>
+
+          <article class="panel span-2">
+            <div class="panel-heading">
+              <h2>Ledger Summary</h2>
+              <div class="ledger-heading-meta">
+                <span class="save-reminder">Save a CSV/PDF or screenshot regularly.</span>
+                <span id="tracker-row-count" class="muted">0 tasks</span>
+              </div>
+            </div>
+            <div class="top-card-grid">
+              <div class="expected-summary" id="tracker-observed-summary"></div>
+              <div class="expected-summary" id="tracker-confirmed-summary"></div>
+              <div class="expected-summary" id="tracker-delta-summary"></div>
+            </div>
+            <div class="table-wrap">
+              <table class="expected-breakdown tracker-table">
+                <thead>
+                  <tr>
+                    <th>Task ID</th>
+                    <th class="numeric">Events</th>
+                    <th class="numeric">Observed</th>
+                    <th class="numeric">Confirmed</th>
+                    <th class="numeric">Delta</th>
+                    <th class="numeric">Confirmed pay</th>
+                  </tr>
+                </thead>
+                <tbody id="tracker-table"></tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="footnote">
+        <span>Trainer Time Tracker</span>
+        <a href="https://github.com/YOUR_USERNAME/trainer-time-tracker" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
+    </main>
+
+    <script src="./time-tracker-core.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+
+
+
+

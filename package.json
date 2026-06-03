@@ -1,0 +1,14 @@
+{
+  "name": "trainer-time-tracker",
+  "scripts": {
+    "dashboard:data": "node scripts/generate-dashboard-data.js",
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "playwright": "^1.60.0"
+  }
+}
+
+
+
