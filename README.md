@@ -247,7 +247,7 @@ print window opens, choose **Save as PDF** to keep a local PDF copy.
 }
 ```
 
-At `$50/hr`, `846` seconds is about `$11.75`.
+
 
 ## Project Layout
 
