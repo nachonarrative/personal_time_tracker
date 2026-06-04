@@ -30,6 +30,9 @@ use this tool to access another person's account or data.
 - Per-task observed time, confirmed time, delta, and expected pay.
 - CSV exports for your own records.
 
+  <img width="1716" height="461" alt="image" src="https://github.com/user-attachments/assets/efa3eaaf-8c82-4650-b8d9-c08228dde0b9" />
+
+
 ## Privacy And Safety
 
 This is a local tool. There is no hosted backend, no shared database, and no
