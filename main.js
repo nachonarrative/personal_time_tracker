@@ -13,7 +13,7 @@ function loadProjectTasksUrl() {
   if (!fs.existsSync(CONFIG_PATH)) {
     throw new Error(
       `Create ${CONFIG_PATH} with your trainer platform tasks URL, for example: ` +
-        `{"projectTasksUrl":"https://training-platform.example/worker/YOUR_PROJECT_ID/tasks"}`
+        `{"projectTasksUrl":"https://ai.joinhandshake.com/fellow/projects/past/YOUR_PROJECT_ID"}`
     );
   }
 

@@ -330,7 +330,7 @@ function createLoginManager() {
 function getConfiguredProject() {
   const workerRoute = ["fel", "low"].join("");
   const fallbackUrl =
-    `https://training-platform.example/${workerRoute}/projects/past/00000000-0000-4000-8000-000000000000`;
+    `https://ai.joinhandshake.com/${workerRoute}/projects/past/26a53071-8843-4138-97df-430bd3e4cd45`;
   let projectUrl = fallbackUrl;
 
   if (fs.existsSync(CONFIG_PATH)) {

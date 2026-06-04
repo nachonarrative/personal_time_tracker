@@ -9,7 +9,7 @@ const {
 const { summarizeTasks } = require("./dashboard-core");
 
 const PLATFORM_ORIGIN =
-  process.env.TRAINER_PLATFORM_ORIGIN || "https://training-platform.example";
+  process.env.TRAINER_PLATFORM_ORIGIN || "https://ai.joinhandshake.com";
 const WORKER_ROUTE = ["fel", "low"].join("");
 const WORKER_ID_FIELD = `${WORKER_ROUTE}Id`;
 const workerProcedure = (name) => `${WORKER_ROUTE}.${name}`;

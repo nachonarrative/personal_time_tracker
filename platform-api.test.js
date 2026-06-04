@@ -25,17 +25,17 @@ test("normalizeProjectInput accepts project IDs and training project URLs", () =
     {
       projectId: "00000000-0000-4000-8000-000000000000",
       projectUrl:
-        `https://training-platform.example/${WORKER_ROUTE}/projects/past/00000000-0000-4000-8000-000000000000`,
+        `https://ai.joinhandshake.com/${WORKER_ROUTE}/projects/past/00000000-0000-4000-8000-000000000000`,
     }
   );
   assert.deepEqual(
     normalizeProjectInput(
-      `https://training-platform.example/${WORKER_ROUTE}/projects/active/a1c6c53b-cfad-414e-bad6-c9a68f7ee902`
+      `https://ai.joinhandshake.com/${WORKER_ROUTE}/projects/active/a1c6c53b-cfad-414e-bad6-c9a68f7ee902`
     ),
     {
       projectId: "a1c6c53b-cfad-414e-bad6-c9a68f7ee902",
       projectUrl:
-        `https://training-platform.example/${WORKER_ROUTE}/projects/active/a1c6c53b-cfad-414e-bad6-c9a68f7ee902`,
+        `https://ai.joinhandshake.com/${WORKER_ROUTE}/projects/active/a1c6c53b-cfad-414e-bad6-c9a68f7ee902`,
     }
   );
 });
@@ -67,7 +67,7 @@ test("fetchTrpcMutation posts batched tRPC body", async () => {
       {
         name: "session",
         value: "abc",
-        domain: "training-platform.example",
+        domain: "ai.joinhandshake.com",
         path: "/",
       },
     ],
@@ -100,7 +100,7 @@ test("fetchTrpcMutation posts batched tRPC body", async () => {
   assert.equal(captured.options.method, "POST");
   assert.equal(
     captured.url,
-    `https://training-platform.example/api/trpc/${workerProcedure("getPayActivitiesByIds")}?batch=1`
+    `https://ai.joinhandshake.com/api/trpc/${workerProcedure("getPayActivitiesByIds")}?batch=1`
   );
   assert.equal(
     captured.options.body,
@@ -115,7 +115,7 @@ test("fetchPayActivitiesByIds chunks large activity lookups", async () => {
       {
         name: "session",
         value: "abc",
-        domain: "training-platform.example",
+        domain: "ai.joinhandshake.com",
         path: "/",
       },
     ],

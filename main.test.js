@@ -62,9 +62,9 @@ test("filterTaskStagesByTaskIds preserves input order and reports missing tasks"
 
 test("getProjectId accepts a past project page URL", () => {
   assert.equal(
-    getProjectId(
-      `https://training-platform.example/${WORKER_ROUTE}/projects/past/00000000-0000-4000-8000-000000000000`
-    ),
+      getProjectId(
+        `https://ai.joinhandshake.com/${WORKER_ROUTE}/projects/past/00000000-0000-4000-8000-000000000000`
+      ),
     "00000000-0000-4000-8000-000000000000"
   );
 });

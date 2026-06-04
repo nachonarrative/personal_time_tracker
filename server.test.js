@@ -50,10 +50,10 @@ test("createAppServer returns an HTTP server instance", () => {
 
 test("getConfiguredProject reads the configured project URL", () => {
   assert.deepEqual(getConfiguredProject(), {
-    id: "00000000-0000-4000-8000-000000000000",
+    id: "26a53071-8843-4138-97df-430bd3e4cd45",
     name: "Configured Project",
     projectUrl:
-      `https://training-platform.example/${WORKER_ROUTE}/projects/past/00000000-0000-4000-8000-000000000000`,
+      `https://ai.joinhandshake.com/${WORKER_ROUTE}/projects/past/26a53071-8843-4138-97df-430bd3e4cd45`,
   });
 });
 
