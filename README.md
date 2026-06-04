@@ -42,9 +42,15 @@ The independent time tracker stores imported records in your browser's
 `localStorage`. That means the tracker data stays on your machine unless you
 choose to export it or share it.
 
+<img width="1732" height="531" alt="image" src="https://github.com/user-attachments/assets/f997bce0-0678-420b-ba2e-4df6bbc9db62" />
+
+
 For the timer tracker, paste only response or payload JSON that belongs to your
 own account. Do not paste request headers, cookies, bearer tokens, session
 values, passwords, or anything from an auth tab.
+
+<img width="1371" height="822" alt="image" src="https://github.com/user-attachments/assets/b01bf373-7adc-4b11-bcda-2233797e705b" />
+
 
 Trainer platform login state, if used for the payout dashboard, is saved locally in an
 `auth.json` file on your machine. That file is gitignored and should never be
